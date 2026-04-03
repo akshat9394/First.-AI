@@ -692,3 +692,138 @@
     </div>
   </div>
 </section>
+ 
+<!-- ESCROW FLOW -->
+<section style="background: var(--bg);">
+  <div class="container">
+    <div class="section-label">Payment Safety</div>
+    <h2 class="section-title">Your Money is<br>Always Protected</h2>
+    <p class="section-sub">Escrow makes sure hirers can't ghost and workers always get paid for real work.</p>
+    <div class="escrow-flow">
+      <div class="flow-step">
+        <div class="flow-step-icon">💳</div>
+        <h4>Hirer Deposits</h4>
+        <p>Money is locked in escrow before the task is posted. No funds = no gig.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-icon">🔒</div>
+        <h4>Funds Held Safe</h4>
+        <p>Escrow holds the money securely during the entire task window.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-icon">✅</div>
+        <h4>AI Validates Work</h4>
+        <p>Submission is checked against the structured checklist automatically.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-icon">⚖️</div>
+        <h4>Disputes Handled</h4>
+        <p>If there's a mismatch, AI suggests fair resolution. 1 revision allowed.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-icon">💸</div>
+        <h4>Payment Released</h4>
+        <p>Full or partial payment released instantly on confirmed delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- TIERS -->
+<section class="how" id="tiers">
+  <div class="container">
+    <div class="section-label">Tier System</div>
+    <h2 class="section-title">Every Beginner Gets<br>a Fair Start</h2>
+    <p class="section-sub">No gatekeeping. Your tier is your safety net — it grows as you do.</p>
+    <div class="tiers-grid">
+      <div class="tier-card">
+        <div class="tier-emoji">🌱</div>
+        <div class="tier-name">Sprout</div>
+        <div class="tier-range">₹0 – ₹500</div>
+        <div class="tier-desc">Just getting started? This tier is designed for zero-experience earners. Low pressure, guided every step.</div>
+        <ul class="tier-items">
+          <li>AI-guided task matching</li>
+          <li>Easy 1–3 hour gigs</li>
+          <li>Full checklist support</li>
+          <li>Escrow protected</li>
+        </ul>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-emoji">🌿</div>
+        <div class="tier-name">Grower</div>
+        <div class="tier-range">₹500 – ₹2,000</div>
+        <div class="tier-desc">You've proven yourself. Unlock better-paying gigs and build a real track record with growing hirers.</div>
+        <ul class="tier-items">
+          <li>Higher value gigs unlocked</li>
+          <li>Rating badge displayed</li>
+          <li>Priority in hirer filters</li>
+          <li>Skill verification badge</li>
+        </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-emoji">🌳</div>
+        <div class="tier-name">Pro</div>
+        <div class="tier-range">₹2,000+</div>
+        <div class="tier-desc">You're no longer a beginner. Premium gigs, higher rates, and direct client relationships await.</div>
+        <ul class="tier-items">
+          <li>Premium gig access</li>
+          <li>Featured worker profile</li>
+          <li>Direct negotiation allowed</li>
+          <li>Portfolio showcase</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="brand">First<span>₹</span> AI</div>
+  <p style="color: var(--text-muted); font-size: 0.8rem;">Built for students. Powered by AI. Made in India 🇮🇳</p>
+  <div class="footer-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#tiers">Tiers</a>
+  </div>
+</footer>
+ 
+<!-- MODAL OVERLAY -->
+<div id="modal-overlay" onclick="closeAllModals()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:200; backdrop-filter:blur(4px);"></div>
+ 
+<!-- GOAL MODAL -->
+<div id="goal-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:201; width:min(480px, 92vw); background:#181818; border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:2rem;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+    <h3 style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:700;">Set Your Earning Goal 🎯</h3>
+    <button onclick="closeAllModals()" style="background:none; border:none; color:#888; font-size:1.3rem; cursor:pointer;">✕</button>
+  </div>
+  <p style="font-size:0.85rem; color:#888780; margin-bottom:1.5rem; line-height:1.6;">Tell us your target and skills. Our AI will suggest the best gigs for you.</p>
+  <div style="margin-bottom:1rem;">
+    <label style="font-size:0.8rem; color:#888780; display:block; margin-bottom:0.4rem;">Earning Goal</label>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.6rem;">
+      <button class="goal-btn" onclick="selectGoal(this,'500')" style="flex:1; min-width:80px; padding:0.6rem; background:rgba(29,158,117,0.12); border:1px solid rgba(29,158,117,0.3); color:#5DCAA5; border-radius:8px; cursor:pointer; font-family:'Syne',sans-serif; font-weight:600; font-size:0.85rem;">₹500</button>
+      <button class="goal-btn" onclick="selectGoal(this,'1000')" style="flex:1; min-width:80px; padding:0.6rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#888; border-radius:8px; cursor:pointer; font-family:'Syne',sans-serif; font-weight:600; font-size:0.85rem;">₹1,000</button>
+      <button class="goal-btn" onclick="selectGoal(this,'2000')" style="flex:1; min-width:80px; padding:0.6rem; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); color:#888; border-radius:8px; cursor:pointer; font-family:'Syne',sans-serif; font-weight:600; font-size:0.85rem;">₹2,000</button>
+    </div>
+    <div style="display:flex; align-items:center; gap:0.5rem;">
+      <span style="font-size:0.8rem; color:#888780; white-space:nowrap;">Or enter custom:</span>
+      <div style="position:relative; flex:1;">
+        <span style="position:absolute; left:0.7rem; top:50%; transform:translateY(-50%); color:#888780; font-size:0.85rem;">₹</span>
+        <input id="custom-goal" type="number" min="1" placeholder="e.g. 750" oninput="onCustomGoal(this)" style="width:100%; padding:0.55rem 0.7rem 0.55rem 1.6rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:8px; color:#f0efea; font-size:0.85rem; outline:none; font-family:'DM Sans',sans-serif;" />
+      </div>
+    </div>
+    <div id="goal-display" style="margin-top:0.6rem; font-size:0.8rem; color:#5DCAA5; min-height:1rem;">Selected: ₹500</div>
+  </div>
+  <div style="margin-bottom:1.5rem;">
+    <label style="font-size:0.8rem; color:#888780; display:block; margin-bottom:0.4rem;">Your Skills (select all that apply)</label>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="skill-btn" onclick="toggleSkill(this)" style="padding:0.45rem 0.9rem; background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.3); color:#AFA9EC; border-radius:100px; cursor:pointer; font-size:0.78rem; font-weight:500;">PPT Making</button>
+      <button class="skill-btn" onclick="toggleSkill(this)" style="padding:0.45rem 0.9rem; background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.3); color:#AFA9EC; border-radius:100px; cursor:pointer; font-size:0.78rem; font-weight:500;">Editing</button>
+      <button class="skill-btn" onclick="toggleSkill(this)" style="padding:0.45rem 0.9rem; background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.3); color:#AFA9EC; border-radius:100px; cursor:pointer; font-size:0.78rem; font-weight:500;">Note Making</button>
+      <button class="skill-btn" onclick="toggleSkill(this)" style="padding:0.45rem 0.9rem; background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.3); color:#AFA9EC; border-radius:100px; cursor:pointer; font-size:0.78rem; font-weight:500;">Coding</button>
+      <button class="skill-btn" onclick="toggleSkill(this)" style="padding:0.45rem 0.9rem; background:rgba(83,74,183,0.12); border:1px solid rgba(83,74,183,0.3); color:#AFA9EC; border-radius:100px; cursor:pointer; font-size:0.78rem; font-weight:500;">Research</button>
+    </div>
+  </div>
+  <button onclick="generateGigs()" style="width:100%; padding:0.9rem; background:#1D9E75; color:white; border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; transition:background 0.2s;">Generate My Gigs 🔥</button>
+</div>
+ 
