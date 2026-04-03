@@ -3,230 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>First₹ AI</title>
-
+<title>First₹ AI — Earn Your First Income</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#0a0a0a;
-  color:white;
-}
-
-nav {
-  display:flex;
-  justify-content:space-between;
-  padding:15px 30px;
-  background:#111;
-}
-
-.hero {
-  text-align:center;
-  padding:100px 20px;
-}
-
-section {
-  padding:60px 20px;
-  max-width:900px;
-  margin:auto;
-}
-
-.demo {
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-}
-
-.chat {
-  flex:1;
-  background:#111;
-  padding:15px;
-  border-radius:10px;
-}
-
-.msg {
-  margin-bottom:10px;
-  padding:10px;
-  border-radius:8px;
-}
-
-.ai { background:#1D9E75; }
-.user { background:#333; text-align:right; }
-
-.gigs {
-  flex:1;
-}
-
-.gig {
-  background:#111;
-  padding:15px;
-  margin-bottom:10px;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-/* MODALS */
-.overlay {
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.7);
-  display:none;
-}
-
-.modal {
-  position:fixed;
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  background:#111;
-  padding:20px;
-  border-radius:10px;
-  width:320px;
-  display:none;
-}
-
-/* CHECKLIST */
-.check-item { margin-bottom:8px; }
-
-.progress-bar {
-  height:6px;
-  background:#333;
-  border-radius:10px;
-  margin-top:10px;
-}
-
-.progress-fill {
-  height:100%;
-  width:0%;
-  background:#1D9E75;
-  border-radius:10px;
-}
-
-/* BUTTON */
-button {
-  margin-top:15px;
-  width:100%;
-  padding:10px;
-  border:none;
-}
-
-/* SUCCESS MODAL */
-.success {
-  text-align:center;
-}
-.success h2 {
-  color:#1D9E75;
-}
-</style>
-</head>
-
-<body>
-
-<nav>
-  <div>First₹ AI</div>
-</nav>
-
-<div class="hero">
-  <h1>Earn Your First ₹500</h1>
-</div>
-
-<section>
-  <h2>Live Demo</h2>
-
-  <div class="demo">
-
-    <div class="chat">
-      <div class="msg user">I want ₹500</div>
-      <div class="msg ai">Here are gigs 👇</div>
-    </div>
-
-    <div class="gigs">
-      <div class="gig" onclick="openModal()">PPT Task — ₹180</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- OVERLAY -->
-<div class="overlay" id="overlay"></div>
-
-<!-- TASK MODAL -->
-<div class="modal" id="taskModal">
-  <h3>PPT Task Checklist</h3>
-
-  <div id="checklist">
-    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> 10 slides minimum</div>
-    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Proper headings</div>
-    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Clean design</div>
-    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Submit ppt file</div>
-  </div>
-
-  <div id="progressText">0/4 completed</div>
-
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-
-  <button id="submitBtn" onclick="submitTask()" disabled>Complete all tasks</button>
-</div>
-
-<!-- SUCCESS MODAL -->
-<div class="modal success" id="successModal">
-  <h2>🎉 Payment Released</h2>
-  <p>You earned ₹180</p>
-  <button onclick="closeAll()">Continue</button>
-</div>
-
-<script>
-function openModal() {
-  document.getElementById("overlay").style.display = "block";
-  document.getElementById("taskModal").style.display = "block";
-}
-
-function closeAll() {
-  document.getElementById("overlay").style.display = "none";
-  document.getElementById("taskModal").style.display = "none";
-  document.getElementById("successModal").style.display = "none";
-}
-
-function updateProgress() {
-  const checks = document.querySelectorAll("#checklist input");
-  let done = 0;
-
-  checks.forEach(c => { if (c.checked) done++; });
-
-  const total = checks.length;
-  const percent = (done / total) * 100;
-
-  document.getElementById("progressFill").style.width = percent + "%";
-  document.getElementById("progressText").innerText = done + "/" + total + " completed";
-
-  const btn = document.getElementById("submitBtn");
-
-  if (done === total) {
-    btn.disabled = false;
-    btn.style.background = "#1D9E75";
-    btn.style.color = "white";
-    btn.innerText = "Submit Task";
-  } else {
-    btn.disabled = true;
-    btn.style.background = "#333";
-    btn.style.color = "#aaa";
-    btn.innerText = "Complete all tasks";
+  :root {
+    --green: #1D9E75;
+    --green-light: #E1F5EE;
+    --green-dark: #085041;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --gray-100: #F1EFE8;
+    --gray-200: #D3D1C7;
+    --gray-500: #888780;
+    --gray-900: #2C2C2A;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0efea;
+    --text-muted: #888780;
   }
-}
-
-function submitTask() {
-  const btn = document.getElementById("submitBtn");
-  btn.innerText = "AI Validating...";
-  btn.style.background = "#085041";
-
-  setTimeout(() => {
-    document.getElementById("taskModal").style.display = "none";
-    document.getElementById("successModal").style.display = "block";
-  }, 1500);
-}
-</script>
-
-</body>
-</html>
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+ 
+  h1, h2, h3, h4, .brand { font-family: 'Syne', sans-serif; }
+ 
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-size: 1.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; }
+  .brand span { color: var(--green); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--green);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; color: white !important; }
+ 
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 20%, rgba(29,158,117,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(83,74,183,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(29,158,117,0.12);
+    border: 1px solid rgba(29,158,117,0.3);
+    color: #5DCAA5;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+  }
+  .hero-badge::before { content: "●"; font-size: 8px; }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+  }
+  .hero h1 .accent { color: var(--green); }
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--green);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+ 
+  .hero-stats {
+    margin-top: 5rem;
+    display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center;
+  }
