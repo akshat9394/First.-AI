@@ -65,6 +65,7 @@ section {
   cursor:pointer;
 }
 
+/* MODALS */
 .overlay {
   position:fixed;
   top:0; left:0;
@@ -85,9 +86,7 @@ section {
 }
 
 /* CHECKLIST */
-.check-item {
-  margin-bottom:8px;
-}
+.check-item { margin-bottom:8px; }
 
 .progress-bar {
   height:6px;
@@ -103,14 +102,20 @@ section {
   border-radius:10px;
 }
 
+/* BUTTON */
 button {
   margin-top:15px;
   width:100%;
   padding:10px;
-  background:#333;
   border:none;
-  color:#aaa;
-  cursor:not-allowed;
+}
+
+/* SUCCESS MODAL */
+.success {
+  text-align:center;
+}
+.success h2 {
+  color:#1D9E75;
 }
 </style>
 </head>
@@ -142,10 +147,11 @@ button {
   </div>
 </section>
 
-<!-- MODAL -->
-<div class="overlay" id="overlay" onclick="closeModal()"></div>
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
 
-<div class="modal" id="modal">
+<!-- TASK MODAL -->
+<div class="modal" id="taskModal">
   <h3>PPT Task Checklist</h3>
 
   <div id="checklist">
@@ -161,27 +167,33 @@ button {
     <div class="progress-fill" id="progressFill"></div>
   </div>
 
-  <button id="submitBtn">Complete all tasks</button>
+  <button id="submitBtn" onclick="submitTask()" disabled>Complete all tasks</button>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal success" id="successModal">
+  <h2>🎉 Payment Released</h2>
+  <p>You earned ₹180</p>
+  <button onclick="closeAll()">Continue</button>
 </div>
 
 <script>
 function openModal() {
-  document.getElementById("modal").style.display = "block";
   document.getElementById("overlay").style.display = "block";
+  document.getElementById("taskModal").style.display = "block";
 }
 
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
+function closeAll() {
   document.getElementById("overlay").style.display = "none";
+  document.getElementById("taskModal").style.display = "none";
+  document.getElementById("successModal").style.display = "none";
 }
 
 function updateProgress() {
   const checks = document.querySelectorAll("#checklist input");
   let done = 0;
 
-  checks.forEach(c => {
-    if (c.checked) done++;
-  });
+  checks.forEach(c => { if (c.checked) done++; });
 
   const total = checks.length;
   const percent = (done / total) * 100;
@@ -192,16 +204,27 @@ function updateProgress() {
   const btn = document.getElementById("submitBtn");
 
   if (done === total) {
+    btn.disabled = false;
     btn.style.background = "#1D9E75";
     btn.style.color = "white";
-    btn.style.cursor = "pointer";
     btn.innerText = "Submit Task";
   } else {
+    btn.disabled = true;
     btn.style.background = "#333";
     btn.style.color = "#aaa";
-    btn.style.cursor = "not-allowed";
     btn.innerText = "Complete all tasks";
   }
+}
+
+function submitTask() {
+  const btn = document.getElementById("submitBtn");
+  btn.innerText = "AI Validating...";
+  btn.style.background = "#085041";
+
+  setTimeout(() => {
+    document.getElementById("taskModal").style.display = "none";
+    document.getElementById("successModal").style.display = "block";
+  }, 1500);
 }
 </script>
 
