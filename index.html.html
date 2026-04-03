@@ -1,41 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>First₹ AI</title>
 
 <style>
-body { background:#0a0a0a; color:white; font-family:sans-serif; }
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#0a0a0a;
+  color:white;
+}
 
-.section { padding:50px; text-align:center; }
+/* NAV */
+nav {
+  display:flex;
+  justify-content:space-between;
+  padding:15px 30px;
+  background:#111;
+}
+nav a {
+  color:#aaa;
+  margin-left:20px;
+  text-decoration:none;
+}
 
+/* HERO */
+.hero {
+  text-align:center;
+  padding:100px 20px;
+}
+.hero h1 {
+  font-size:40px;
+}
+.btn {
+  background:#1D9E75;
+  padding:10px 20px;
+  border:none;
+  color:white;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+/* SECTION */
+section {
+  padding:60px 20px;
+  max-width:900px;
+  margin:auto;
+}
+
+/* STEPS */
+.step {
+  margin-bottom:15px;
+}
+
+/* FEATURES */
 .feature {
-  margin:20px;
+  margin-bottom:15px;
+}
+
+/* DEMO */
+.demo {
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* CHAT */
+.chat {
+  flex:1;
+  background:#111;
   padding:15px;
-  border:1px solid #333;
+  border-radius:10px;
+}
+.msg {
+  margin-bottom:10px;
+  padding:10px;
+  border-radius:8px;
+}
+.ai { background:#1D9E75; }
+.user { background:#333; text-align:right; }
+
+/* GIG CARDS */
+.gigs {
+  flex:1;
+}
+.gig {
+  background:#111;
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+.gig:hover {
+  border:1px solid #1D9E75;
 }
 </style>
-
 </head>
 
 <body>
 
-<section class="section">
+<!-- NAV -->
+<nav>
+  <div>First₹ AI</div>
+  <div>
+    <a href="#">How</a>
+    <a href="#">Features</a>
+    <a href="#">Demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
   <h1>Earn Your First ₹500</h1>
-</section>
+  <p>AI-guided micro gigs for beginners</p>
+  <button class="btn">Start</button>
+</div>
 
-<section class="section">
+<!-- HOW -->
+<section>
   <h2>How It Works</h2>
-  <p>Set goal → Get gigs → Complete → Earn</p>
+  <div class="step">1. Set goal</div>
+  <div class="step">2. AI suggests gigs</div>
+  <div class="step">3. Complete task</div>
 </section>
 
-<section class="section">
+<!-- FEATURES -->
+<section>
   <h2>Features</h2>
+  <div class="feature">AI Guidance</div>
+  <div class="feature">Escrow Payment</div>
+  <div class="feature">Progress Tracking</div>
+</section>
 
-  <div class="feature">🤖 AI Guidance</div>
-  <div class="feature">📋 Structured Tasks</div>
-  <div class="feature">💰 Escrow Payments</div>
-  <div class="feature">📈 Progress Tracking</div>
+<!-- DEMO -->
+<section>
+  <h2>Live Demo</h2>
 
+  <div class="demo">
+
+    <!-- CHAT -->
+    <div class="chat">
+      <div class="msg user">I want ₹500</div>
+      <div class="msg ai">Here are gigs for you 👇</div>
+    </div>
+
+    <!-- GIGS -->
+    <div class="gigs">
+      <div class="gig">PPT Task — ₹180</div>
+      <div class="gig">Essay Edit — ₹120</div>
+      <div class="gig">Notes — ₹200</div>
+    </div>
+
+  </div>
 </section>
 
 </body>
