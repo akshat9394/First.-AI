@@ -50,16 +50,6 @@ section {
   margin:auto;
 }
 
-/* STEPS */
-.step {
-  margin-bottom:15px;
-}
-
-/* FEATURES */
-.feature {
-  margin-bottom:15px;
-}
-
 /* DEMO */
 .demo {
   display:flex;
@@ -96,6 +86,35 @@ section {
 .gig:hover {
   border:1px solid #1D9E75;
 }
+
+/* MODAL */
+.overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  display:none;
+}
+
+.modal {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#111;
+  padding:20px;
+  border-radius:10px;
+  width:300px;
+  display:none;
+}
+
+.modal h3 {
+  margin-top:0;
+}
+
+.close {
+  cursor:pointer;
+  float:right;
+}
 </style>
 </head>
 
@@ -118,43 +137,47 @@ section {
   <button class="btn">Start</button>
 </div>
 
-<!-- HOW -->
-<section>
-  <h2>How It Works</h2>
-  <div class="step">1. Set goal</div>
-  <div class="step">2. AI suggests gigs</div>
-  <div class="step">3. Complete task</div>
-</section>
-
-<!-- FEATURES -->
-<section>
-  <h2>Features</h2>
-  <div class="feature">AI Guidance</div>
-  <div class="feature">Escrow Payment</div>
-  <div class="feature">Progress Tracking</div>
-</section>
-
 <!-- DEMO -->
 <section>
   <h2>Live Demo</h2>
 
   <div class="demo">
 
-    <!-- CHAT -->
     <div class="chat">
       <div class="msg user">I want ₹500</div>
       <div class="msg ai">Here are gigs for you 👇</div>
     </div>
 
-    <!-- GIGS -->
     <div class="gigs">
-      <div class="gig">PPT Task — ₹180</div>
-      <div class="gig">Essay Edit — ₹120</div>
-      <div class="gig">Notes — ₹200</div>
+      <div class="gig" onclick="openModal('PPT Task')">PPT Task — ₹180</div>
+      <div class="gig" onclick="openModal('Essay Edit')">Essay Edit — ₹120</div>
+      <div class="gig" onclick="openModal('Notes')">Notes — ₹200</div>
     </div>
 
   </div>
 </section>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">✖</span>
+  <h3 id="modalTitle">Task</h3>
+  <p>Basic task details here</p>
+</div>
+
+<script>
+function openModal(title) {
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+</script>
 
 </body>
 </html>
