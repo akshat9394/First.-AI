@@ -13,69 +13,50 @@ body {
   color:white;
 }
 
-/* NAV */
 nav {
   display:flex;
   justify-content:space-between;
   padding:15px 30px;
   background:#111;
 }
-nav a {
-  color:#aaa;
-  margin-left:20px;
-  text-decoration:none;
-}
 
-/* HERO */
 .hero {
   text-align:center;
   padding:100px 20px;
 }
-.hero h1 {
-  font-size:40px;
-}
-.btn {
-  background:#1D9E75;
-  padding:10px 20px;
-  border:none;
-  color:white;
-  cursor:pointer;
-  margin-top:15px;
-}
 
-/* SECTION */
 section {
   padding:60px 20px;
   max-width:900px;
   margin:auto;
 }
 
-/* DEMO */
 .demo {
   display:flex;
   gap:20px;
   flex-wrap:wrap;
 }
 
-/* CHAT */
 .chat {
   flex:1;
   background:#111;
   padding:15px;
   border-radius:10px;
 }
+
 .msg {
   margin-bottom:10px;
   padding:10px;
   border-radius:8px;
 }
+
 .ai { background:#1D9E75; }
 .user { background:#333; text-align:right; }
 
-/* GIG CARDS */
 .gigs {
   flex:1;
 }
+
 .gig {
   background:#111;
   padding:15px;
@@ -83,11 +64,7 @@ section {
   border-radius:10px;
   cursor:pointer;
 }
-.gig:hover {
-  border:1px solid #1D9E75;
-}
 
-/* MODAL */
 .overlay {
   position:fixed;
   top:0; left:0;
@@ -103,41 +80,51 @@ section {
   background:#111;
   padding:20px;
   border-radius:10px;
-  width:300px;
+  width:320px;
   display:none;
 }
 
-.modal h3 {
-  margin-top:0;
+/* CHECKLIST */
+.check-item {
+  margin-bottom:8px;
 }
 
-.close {
-  cursor:pointer;
-  float:right;
+.progress-bar {
+  height:6px;
+  background:#333;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.progress-fill {
+  height:100%;
+  width:0%;
+  background:#1D9E75;
+  border-radius:10px;
+}
+
+button {
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  background:#333;
+  border:none;
+  color:#aaa;
+  cursor:not-allowed;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
   <div>First₹ AI</div>
-  <div>
-    <a href="#">How</a>
-    <a href="#">Features</a>
-    <a href="#">Demo</a>
-  </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <h1>Earn Your First ₹500</h1>
-  <p>AI-guided micro gigs for beginners</p>
-  <button class="btn">Start</button>
 </div>
 
-<!-- DEMO -->
 <section>
   <h2>Live Demo</h2>
 
@@ -145,13 +132,11 @@ section {
 
     <div class="chat">
       <div class="msg user">I want ₹500</div>
-      <div class="msg ai">Here are gigs for you 👇</div>
+      <div class="msg ai">Here are gigs 👇</div>
     </div>
 
     <div class="gigs">
-      <div class="gig" onclick="openModal('PPT Task')">PPT Task — ₹180</div>
-      <div class="gig" onclick="openModal('Essay Edit')">Essay Edit — ₹120</div>
-      <div class="gig" onclick="openModal('Notes')">Notes — ₹200</div>
+      <div class="gig" onclick="openModal()">PPT Task — ₹180</div>
     </div>
 
   </div>
@@ -161,14 +146,26 @@ section {
 <div class="overlay" id="overlay" onclick="closeModal()"></div>
 
 <div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">✖</span>
-  <h3 id="modalTitle">Task</h3>
-  <p>Basic task details here</p>
+  <h3>PPT Task Checklist</h3>
+
+  <div id="checklist">
+    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> 10 slides minimum</div>
+    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Proper headings</div>
+    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Clean design</div>
+    <div class="check-item"><input type="checkbox" onchange="updateProgress()"> Submit ppt file</div>
+  </div>
+
+  <div id="progressText">0/4 completed</div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <button id="submitBtn">Complete all tasks</button>
 </div>
 
 <script>
-function openModal(title) {
-  document.getElementById("modalTitle").innerText = title;
+function openModal() {
   document.getElementById("modal").style.display = "block";
   document.getElementById("overlay").style.display = "block";
 }
@@ -176,6 +173,35 @@ function openModal(title) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
   document.getElementById("overlay").style.display = "none";
+}
+
+function updateProgress() {
+  const checks = document.querySelectorAll("#checklist input");
+  let done = 0;
+
+  checks.forEach(c => {
+    if (c.checked) done++;
+  });
+
+  const total = checks.length;
+  const percent = (done / total) * 100;
+
+  document.getElementById("progressFill").style.width = percent + "%";
+  document.getElementById("progressText").innerText = done + "/" + total + " completed";
+
+  const btn = document.getElementById("submitBtn");
+
+  if (done === total) {
+    btn.style.background = "#1D9E75";
+    btn.style.color = "white";
+    btn.style.cursor = "pointer";
+    btn.innerText = "Submit Task";
+  } else {
+    btn.style.background = "#333";
+    btn.style.color = "#aaa";
+    btn.style.cursor = "not-allowed";
+    btn.innerText = "Complete all tasks";
+  }
 }
 </script>
 
