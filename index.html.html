@@ -827,3 +827,256 @@
   <button onclick="generateGigs()" style="width:100%; padding:0.9rem; background:#1D9E75; color:white; border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; transition:background 0.2s;">Generate My Gigs 🔥</button>
 </div>
  
+<!-- GIG DETAIL MODAL (data-driven) -->
+<div id="gig-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:201; width:min(500px, 92vw); background:#181818; border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:2rem; max-height:85vh; overflow-y:auto;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+    <h3 id="gig-modal-title" style="font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700;"></h3>
+    <button onclick="closeAllModals()" style="background:none; border:none; color:#888; font-size:1.3rem; cursor:pointer;">✕</button>
+  </div>
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; padding:1rem; background:rgba(29,158,117,0.08); border-radius:10px; border:1px solid rgba(29,158,117,0.2);">
+    <div>
+      <div style="font-size:0.75rem; color:#888780;">Payment (in escrow)</div>
+      <div id="gig-modal-price" style="font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:#1D9E75;"></div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:0.75rem; color:#888780;">Deadline</div>
+      <div id="gig-modal-deadline" style="font-size:0.9rem; font-weight:500;"></div>
+    </div>
+  </div>
+  <div style="margin-bottom:1.5rem;">
+    <div style="font-size:0.8rem; font-weight:600; color:#888780; letter-spacing:0.5px; margin-bottom:0.8rem;">📋 TASK CHECKLIST</div>
+    <div id="checklist" style="display:flex; flex-direction:column; gap:0.6rem;"></div>
+  </div>
+  <div id="checklist-progress" style="margin-bottom:1rem; display:none;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+      <span style="font-size:0.78rem; color:#888780;">Checklist completion</span>
+      <span id="check-count" style="font-size:0.78rem; color:#1D9E75; font-weight:600;">0/4</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.06); border-radius:100px; height:5px;">
+      <div id="check-bar" style="height:5px; border-radius:100px; background:#1D9E75; width:0%; transition:width 0.4s;"></div>
+    </div>
+  </div>
+  <button id="submit-btn" onclick="submitTask()" style="width:100%; padding:0.9rem; background:rgba(255,255,255,0.07); color:#888; border:1px solid rgba(255,255,255,0.1); border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; cursor:not-allowed; transition:all 0.3s;" disabled>Check all items to submit</button>
+</div>
+ 
+<!-- SUCCESS MODAL -->
+<div id="success-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:201; width:min(440px, 92vw); background:#181818; border:1px solid rgba(29,158,117,0.4); border-radius:20px; padding:2.5rem; text-align:center;">
+  <div style="font-size:3rem; margin-bottom:1rem;">🎉</div>
+  <h3 style="font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; margin-bottom:0.5rem;">AI Validated ✅</h3>
+  <p style="color:#888780; font-size:0.85rem; margin-bottom:1.5rem; line-height:1.6;">All checklist items passed. Payment has been released from escrow.</p>
+  <div style="background:rgba(29,158,117,0.1); border:1px solid rgba(29,158,117,0.25); border-radius:14px; padding:1.5rem; margin-bottom:1.5rem;">
+    <div style="font-size:0.75rem; color:#888780; margin-bottom:0.3rem;">Amount Earned</div>
+    <div id="s-amount" style="font-family:'Syne',sans-serif; font-size:2.5rem; font-weight:900; color:#1D9E75;">₹180</div>
+    <div style="font-size:0.78rem; color:#5DCAA5; margin-top:0.3rem;">Added to your wallet 💰</div>
+  </div>
+  <div style="margin-bottom:1.5rem;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+      <span id="s-goal-label" style="font-size:0.82rem; color:#888780;">Progress to ₹500 goal</span>
+      <span id="s-goal-earned" style="font-size:0.82rem; color:#1D9E75; font-weight:600;">₹180 / ₹500</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.06); border-radius:100px; height:8px; overflow:hidden;">
+      <div id="success-bar" style="height:8px; border-radius:100px; background:#1D9E75; width:0%; transition:width 1.2s ease;"></div>
+    </div>
+    <div id="s-remaining" style="font-size:0.75rem; color:#888780; margin-top:0.4rem;">2 more gigs to reach your goal 🚀</div>
+  </div>
+  <button onclick="closeAllModals()" style="width:100%; padding:0.85rem; background:#1D9E75; color:white; border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; cursor:pointer;">Find My Next Gig →</button>
+</div>
+ 
+<script>
+const GIG_DATA = {
+  ppt: {
+    title: 'College Seminar PPT (10 slides)',
+    price: '₹180', amount: 180, deadline: '48 hours',
+    items: [
+      '10 slides minimum with clear headings',
+      'Include title slide, content slides, conclusion',
+      'Consistent fonts and color theme throughout',
+      'Deliver as .pptx file'
+    ]
+  },
+  essay: {
+    title: 'Proofread 3000-word essay',
+    price: '₹120', amount: 120, deadline: '24 hours',
+    items: [
+      'Fix all grammar and spelling errors',
+      'Maintain original writing voice and tone',
+      'Deliver as clean .docx with tracked changes'
+    ]
+  },
+  notes: {
+    title: 'Handwritten Notes (Physics Ch.4)',
+    price: '₹200', amount: 200, deadline: '72 hours',
+    items: [
+      'Cover all topics from Chapter 4 syllabus',
+      'Clear diagrams with labels where required',
+      'Neat handwriting, legible and well-organized',
+      'Scan and deliver as PDF (min 200 DPI)',
+      'Include summary at end of chapter'
+    ]
+  }
+};
+ 
+let currentGig = null;
+let selectedGoal = 500;
+ 
+function openGoalModal() {
+  document.getElementById('modal-overlay').style.display = 'block';
+  document.getElementById('goal-modal').style.display = 'block';
+}
+ 
+function openGigModal(gigKey) {
+  currentGig = GIG_DATA[gigKey];
+  document.getElementById('gig-modal-title').textContent = currentGig.title;
+  document.getElementById('gig-modal-price').textContent = currentGig.price;
+  document.getElementById('gig-modal-deadline').textContent = currentGig.deadline;
+  const cl = document.getElementById('checklist');
+  cl.innerHTML = currentGig.items.map((item, i) =>
+    `<label style="display:flex;align-items:center;gap:0.8rem;cursor:pointer;padding:0.7rem;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.07);">
+      <input type="checkbox" id="c${i}" onchange="checkProgress()" style="width:16px;height:16px;accent-color:#1D9E75;">
+      <span style="font-size:0.85rem;">${item}</span>
+    </label>`
+  ).join('');
+  document.getElementById('checklist-progress').style.display = 'none';
+  document.getElementById('check-bar').style.width = '0%';
+  document.getElementById('check-count').textContent = '0/' + currentGig.items.length;
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.style.cssText = 'width:100%;padding:0.9rem;background:rgba(255,255,255,0.07);color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-family:\'Syne\',sans-serif;font-weight:700;font-size:0.95rem;cursor:not-allowed;transition:all 0.3s;';
+  btn.textContent = 'Check all items to submit';
+  document.getElementById('modal-overlay').style.display = 'block';
+  document.getElementById('gig-modal').style.display = 'block';
+}
+function closeAllModals() {
+  ['modal-overlay','goal-modal','gig-modal','success-modal'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+}
+function selectGoal(btn, val) {
+  selectedGoal = parseInt(val);
+  document.getElementById('custom-goal').value = '';
+  document.getElementById('goal-display').textContent = 'Selected: ₹' + selectedGoal.toLocaleString('en-IN');
+  document.querySelectorAll('.goal-btn').forEach(b => {
+    b.style.background = 'rgba(255,255,255,0.04)';
+    b.style.borderColor = 'rgba(255,255,255,0.1)';
+    b.style.color = '#888';
+  });
+  btn.style.background = 'rgba(29,158,117,0.18)';
+  btn.style.borderColor = 'rgba(29,158,117,0.5)';
+  btn.style.color = '#5DCAA5';
+}
+function onCustomGoal(input) {
+  const val = parseInt(input.value);
+  document.querySelectorAll('.goal-btn').forEach(b => {
+    b.style.background = 'rgba(255,255,255,0.04)';
+    b.style.borderColor = 'rgba(255,255,255,0.1)';
+    b.style.color = '#888';
+  });
+  if (val > 0) {
+    selectedGoal = val;
+    document.getElementById('goal-display').textContent = 'Selected: ₹' + val.toLocaleString('en-IN');
+  } else {
+    document.getElementById('goal-display').textContent = 'Enter a valid amount';
+  }
+}
+function toggleSkill(btn) {
+  const active = btn.getAttribute('data-active') === '1';
+  if (active) {
+    btn.style.background = 'rgba(83,74,183,0.12)'; btn.style.borderColor = 'rgba(83,74,183,0.3)'; btn.style.color = '#AFA9EC'; btn.setAttribute('data-active','0');
+  } else {
+    btn.style.background = 'rgba(83,74,183,0.3)'; btn.style.borderColor = 'rgba(83,74,183,0.6)'; btn.style.color = '#CECBF6'; btn.setAttribute('data-active','1');
+  }
+}
+function generateGigs() {
+  const btn = document.querySelector('#goal-modal button:last-of-type');
+  btn.textContent = '🤖 AI is matching gigs...';
+  btn.style.background = '#085041';
+  setTimeout(() => {
+    closeAllModals();
+    document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.gig-card').forEach(c => {
+      c.style.boxShadow = '0 0 0 2px #1D9E75';
+      setTimeout(() => { c.style.boxShadow = 'none'; }, 2500);
+    });
+    btn.textContent = 'Generate My Gigs 🔥';
+    btn.style.background = '#1D9E75';
+  }, 1800);
+}
+function checkProgress() {
+  const total = currentGig.items.length;
+  let checked = 0;
+  for (let i = 0; i < total; i++) { const cb = document.getElementById('c' + i); if (cb && cb.checked) checked++; }
+  document.getElementById('checklist-progress').style.display = 'block';
+  document.getElementById('check-bar').style.width = Math.round(checked / total * 100) + '%';
+  document.getElementById('check-count').textContent = checked + '/' + total;
+  const btn = document.getElementById('submit-btn');
+  if (checked === total) {
+    btn.disabled = false;
+    btn.style.cssText = 'width:100%;padding:0.9rem;background:#1D9E75;color:white;border:1px solid #1D9E75;border-radius:10px;font-family:\'Syne\',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.3s;';
+    btn.textContent = 'Submit Task ✅';
+  } else {
+    btn.disabled = true;
+    btn.style.cssText = 'width:100%;padding:0.9rem;background:rgba(255,255,255,0.07);color:#888;border:1px solid rgba(255,255,255,0.1);border-radius:10px;font-family:\'Syne\',sans-serif;font-weight:700;font-size:0.95rem;cursor:not-allowed;transition:all 0.3s;';
+    btn.textContent = checked + '/' + total + ' items checked — keep going!';
+  }
+}
+function submitTask() {
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = '🤖 AI Validating...';
+  btn.style.background = '#085041';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('gig-modal').style.display = 'none';
+    const sm = document.getElementById('success-modal');
+    document.getElementById('s-amount').textContent = currentGig.price;
+    const pct = Math.min(Math.round(currentGig.amount / selectedGoal * 100), 100);
+    document.getElementById('s-goal-label').textContent = 'Progress to ₹' + selectedGoal.toLocaleString('en-IN') + ' goal';
+    document.getElementById('s-goal-earned').textContent = currentGig.price + ' / ₹' + selectedGoal.toLocaleString('en-IN');
+    const rem = Math.ceil((selectedGoal - currentGig.amount) / 150);
+    document.getElementById('s-remaining').textContent = rem > 0 ? rem + ' more gig' + (rem > 1 ? 's' : '') + ' to reach your goal 🚀' : 'You crushed your goal! 🎉';
+    sm.style.display = 'block';
+    setTimeout(() => { document.getElementById('success-bar').style.width = pct + '%'; }, 300);
+  }, 2000);
+}
+ 
+function handleSignup() {
+  const input = document.querySelector('.cta-input');
+  const msg = document.getElementById('signup-msg');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) {
+    msg.style.color = '#D85A30';
+    msg.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  msg.style.color = '#1D9E75';
+  msg.textContent = '🎉 You\'re on the list! We\'ll reach out when we launch.';
+  input.value = '';
+  input.disabled = true;
+}
+ 
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+ 
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+ 
+document.querySelectorAll('.step, .feature, .tier-card, .gig-card, .flow-step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
+ 
