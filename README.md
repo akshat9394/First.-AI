@@ -1,7 +1,7 @@
 # 🚀 First₹ AI — Earn Your First Income
 
 ## 🌐 Live Demo
-👉 [Click Here to View the Website] ( https://vercel.com/akshat9394s-projects/first-ai )
+👉 [Click Here to View the Website] ( https://first-ai-xi.vercel.app/ )
 ---
 
 ## 📌 About the Project
